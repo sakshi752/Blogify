@@ -2,31 +2,71 @@ import User from '../modals/User.js'
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
 import { generateAccessToken } from '../services/tokenService.js';
-import asyncHandler  from "../utils/asyncHandler.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import ApiError from '../utils/ApiError.js';
+import ApiResponse from '../utils/ApiResponse.js';
+import uploadOnCloudinary from '../utils/cloudinary.js';
+import {
+    validateEmail,
+    validatePw,
+    validateRequiredFields
+} from "../utils/validators.js";
 
 
-export const register = asyncHandler(
-    async (req, res) => {
-        const { fullName, email, username, password } = req.body;
+export const register = asyncHandler(async (req, res) => {
+    // get the user's details from frontend
+    // add a validation if any of the field is empty or not
+    // check if user already exists: username, email
+    // check for avatarLocalPath image
+    // upload it to cloudinary
+    // create user object - create entry in db
 
-        const existingUser = await User.findOne({ email });
 
-        if (existingUser) {
-            return res.status(400).json({
-                message: "User already exists"
-            })
-        }
+    const { username, email, fullname, password } = req.body;
 
-        const hashedPw = await bcrypt.hash(password, 10);
+    validateRequiredFields({
+        username,
+        email,
+        fullname,
+        password
+    })
 
-        await User.create({ name, email, password: hashedPw })
+    validateEmail(email)
+    validatePw(password)
 
-        return res.status(200).json({
-            success: true,
-            message: 'User registered successfully'
-        })
+    const existedUser = await User.findOne({
+        $or: [{ username }, { email }]
+    })
 
+    if (existedUser) {
+        throw new ApiError(400, "User with given email or username already exists")
     }
+
+    const avatarLocalPath = req.file?.path;
+
+    if (!avatarLocalPath) {
+        throw new ApiError(400, "avatarLocalPath file is required")
+    }
+
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+
+    if (!avatar) {
+        throw new ApiError(400, "Avatar file is required")
+    }
+
+
+    const user = await User.create({
+        fullname,
+        email: email.toLowerCase(),
+        avatar: avatar.url,
+        password,
+        username: username.toLowerCase()
+    })
+
+    return res.status(200).json(
+        new ApiResponse(200, "User registered Successfully")
+    )
+}
 )
 
 export const login = async (req, res) => {
