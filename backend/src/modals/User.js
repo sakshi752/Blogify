@@ -75,8 +75,19 @@ userSchema.pre("save", async function () {
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.passwod)
+    return await bcrypt.compare(password, this.password)
 }
+
+// access token are short lived and refreh token are long lived
+// Access Token expires
+//         ↓
+// Frontend sends Refresh Token
+//         ↓
+// Backend verifies Refresh Token
+//         ↓
+// Backend generates new Access Token
+//         ↓
+// User continues using the app
 
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
