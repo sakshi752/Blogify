@@ -11,6 +11,14 @@ const userSchema = new mongoose.Schema({
         trim: true,
         // index:true for searching
     },
+    usernameChangeCount: {
+        type: Number,
+        default: 0
+    },
+    usernameChangeWeekStart: {
+        type: Date,
+        default: null
+    },
     email: {
         type: String,
         unique: true,
@@ -39,8 +47,15 @@ const userSchema = new mongoose.Schema({
         default: "USER"
     },
     avatar: {
-        type: String,
-        default: ""
+        url: {
+            type: String,
+            default: ""
+        },
+
+        publicId: {
+            type: String,
+            default: ""
+        }
     },
     followersCount: {
         type: Number,
@@ -58,7 +73,19 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    watchHistory: [
+    isDeactivate:{
+        type:Boolean,
+        enum:[true,false],
+        default:false
+    },
+    bookmarks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Blog"
+        }
+    ],
+
+    likedBlogs: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Blog"

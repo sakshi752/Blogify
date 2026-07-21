@@ -7,12 +7,6 @@ const blogSchema = new mongoose.Schema(
         required: true,
         trim: true
     },
-
-    // slug: {
-    //     type: String,
-    //     unique: true
-    // }, 
-
     content: {
         type: String,
         required: true

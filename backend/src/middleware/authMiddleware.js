@@ -5,7 +5,11 @@ import User from "../modals/User.js";
 
 export const authenticationMiddleware = asyncHandler(
     async (req, res, next) => {
-
+        // take access token from cookies or from headers
+        // check if token exists
+        // decode token
+        // find user via id from decodedToken and eliminate 
+        // validate if user exists?
         const token =
             req.cookies?.accessToken ||
             req.headers.authorization?.split(" ")[1];

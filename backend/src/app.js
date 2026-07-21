@@ -1,7 +1,6 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import authRoutes from "./routes/authRoutes.js"
 
 const app = express();
 
@@ -17,6 +16,10 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+import authRoutes from "./routes/authRoutes.js"
+import blogRoutes from "./routes/blogRoutes.js"
+
 app.use("/api/v1/user",authRoutes)
+app.use("/app/v1/blogs",)
 
 export default app;
