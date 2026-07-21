@@ -1,12 +1,17 @@
 import express from "express"
 import { authenticationMiddleware } from "../middleware/authMiddleware.js";
+import { createBlog, deleteBlog, getAllBlogs, getBlogById, updateBlog } from "../controllers/blogsController.js";
+import upload from "../middleware/multer.js";
 
 const router = express.Router();
 
-router.post("/",authenticationMiddleware)
-router.patch("/:id")
-router.delete("/")
-router.get("/")
-router.get("/:id")
+// Public routes
+router.get("/",getAllBlogs)
+router.get("/:id",getBlogById)
+
+// Secured routes 
+router.post("/",authenticationMiddleware,upload.single('coverImage'),createBlog)
+router.patch("/:id",authenticationMiddleware,updateBlog)
+router.delete("/",authenticationMiddleware,deleteBlog)
 
 export default router

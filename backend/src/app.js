@@ -18,8 +18,10 @@ app.use(cors({
 
 import authRoutes from "./routes/authRoutes.js"
 import blogRoutes from "./routes/blogRoutes.js"
+import bookMarkRoutes from "./routes/bookmarkRoutes.js"
 
 app.use("/api/v1/user",authRoutes)
-app.use("/app/v1/blogs",)
+app.use("/app/v1/blogs",blogRoutes);
+app.use("/app/v1/bookmark",bookMarkRoutes) 
 
 export default app;

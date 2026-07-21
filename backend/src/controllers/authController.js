@@ -11,7 +11,7 @@ import {
     validatePw,
     validateRequiredFields
 } from "../utils/validators.js";
-import { optionsObject } from '../utils/global.js';
+import { optionsObject, uploadRequiredFiles } from '../services/global.js';
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
@@ -70,27 +70,16 @@ export const register = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User with given email or username already exists")
     }
 
-    // check for avatarLocalPath image
-    const avatarLocalPath = req.file?.path;
-
-    if (!avatarLocalPath) {
-        throw new ApiError(400, "avatarLocalPath file is required")
-    }
-
-    // upload it to cloudinary
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-    if (!avatar) {
-        throw new ApiError(400, "Error while uploading avatar file on cloudinary")
-    }
+    // upload file on cloudinary
+    const uploadedAvatarImgFile = uploadRequiredFiles(req.file)
 
     // Create user
     const user = await User.create({
         fullname,
         email: email.toLowerCase(),
         avatar: {
-            url: avatar.url,
-            publicId: avatar.public_id
+            url: uploadedAvatarImgFile.url,
+            publicId: uploadedAvatarImgFile.public_id
         },
         password,
         username: username.toLowerCase()
@@ -333,44 +322,19 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 })
 
 export const updateAvatar = asyncHandler(async (req, res) => {
-    // get new avatar local path
-    const avatarLocalPath = req.file?.path;
-
-    // check if it exists or not
-    if (!avatarLocalPath) {
-        throw new ApiError(400, "avatarLocalPath file is required")
-    }
-
     // Get current user first
-    const user = await User.findById(req.user?._id);
-
-    if (!user) {
-        throw new ApiError(404, "User not found");
-    }
+    const user = req.user
 
     // Save old avatar publicId
-    const oldAvatarPublicId = user.avatar?.publicId;
+    await deleteOldFile(user.avatar)
 
-    // Delete old avatar from cloudinary
-    if (oldAvatarPublicId) {
-        const deleteData = await deleteOnCloudinary(oldAvatarPublicId)
-
-        if (!deleteData) {
-            throw new ApiError(400, "Error in deleting old avatar from cloudinary")
-        }
-    }
-
-    // upload new avatar to cloudinary
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-    if (!avatar) {
-        throw new ApiError(400, "Error while uploading avatar file on cloudinary")
-    }
+    // upload on cloudinary
+    const uploadedAvatarImgFile = uploadRequiredFiles(req.file);
 
     // Update user with new avatar
     user.avatar = {
-        url: avatar.url,
-        publicId: avatar.public_id
+        url: uploadedAvatarImgFile.url,
+        publicId: uploadedAvatarImgFile.public_id
     };
 
     await user.save();

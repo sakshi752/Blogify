@@ -13,16 +13,21 @@ const blogSchema = new mongoose.Schema(
     },
 
     coverImage: {
-        type: String,
-        default: ""
+        url:{
+            type:String,
+            default:""
+        },
+        publicId:{
+            type:String,
+            default:""
+        }
     },
 
     status: {
         type: String,
         enum: ["DRAFT", "PUBLISHED"],
-        default: "DRAFT"
+        default: "PUBLISHED"
     },
-
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
