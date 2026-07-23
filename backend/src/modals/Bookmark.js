@@ -2,12 +2,12 @@ import mongoose, { Mongoose } from "mongoose";
 
 const bookMarkScehma = new mongoose.Schema(
     {
-        userID: {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
         },
-        blogId:{
+        blog:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"Blog",
             required:true
