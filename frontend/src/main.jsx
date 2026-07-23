@@ -11,25 +11,28 @@ import {
 
 import Layout from './Layout.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
-
 import HomePage from './pages/HomePage/HomePage.jsx'
-import LoginAndRegisterPage from './pages/LoginAndRegisterPage/LoginRegister'
-import LoginAndRegisterPage from './pages/BlogPage/BlogPage.jsx'
+import BlogPage from './pages/BlogPage/BlogPage.jsx'
+import LoginRegisterPage from './pages/LoginAndRegisterPage/LoginRegisterPage.jsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 
 const publicRoutes = [
   {
     path: '/',
-    element: <Home />
+    element: <HomePage />
   },
   {
     path: '/login',
-    element: <LoginAndRegisterPage />
+    element: <LoginRegisterPage />
   },
   {
-    path:'/blog',
-    element:<BlogPage/>
+    path: '/register',
+    element: <LoginRegisterPage />
+  },
+  {
+    path: '/blog',
+    element: <BlogPage />
   }
 ]
 
