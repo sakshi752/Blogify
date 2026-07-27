@@ -13,7 +13,6 @@ export const authenticationMiddleware = asyncHandler(
         const token =
             req.cookies?.accessToken ||
             req.headers.authorization?.split(" ")[1];
-
         if (!token) {
             throw new ApiError(
                 401,

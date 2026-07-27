@@ -3,8 +3,8 @@ import { toast } from "react-toastify"
 
 export const postService = async (endpoint, body = {}, token, headers = {}) => {
     try {
-
         const isFormData = body instanceof FormData;
+        console.log("dasd",isFormData)
 
         const response = await fetch(`${BASE_URL}${endpoint}`, {
             method: "POST",

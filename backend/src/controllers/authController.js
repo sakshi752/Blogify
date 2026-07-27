@@ -11,7 +11,7 @@ import {
     validatePw,
     validateRequiredFields
 } from "../utils/validators.js";
-import { optionsObject, uploadRequiredFiles } from '../services/global.js';
+import { optionsObject, uploadRequiredFiles,deleteOldFile } from '../services/global.js';
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
@@ -71,7 +71,7 @@ export const register = asyncHandler(async (req, res) => {
     }
 
     // upload file on cloudinary
-    const uploadedAvatarImgFile = uploadRequiredFiles(req.file)
+    const uploadedAvatarImgFile = await uploadRequiredFiles(req.file)
 
     // Create user
     const user = await User.create({
@@ -94,7 +94,6 @@ export const register = asyncHandler(async (req, res) => {
 export const loginUser = asyncHandler(async (req, res) => {
     // get user's username or email(identifier) and password
     const { identifier, password } = req.body;
-
     // validate required fields
     validateRequiredFields({ identifier, password })
 
@@ -329,7 +328,7 @@ export const updateAvatar = asyncHandler(async (req, res) => {
     await deleteOldFile(user.avatar)
 
     // upload on cloudinary
-    const uploadedAvatarImgFile = uploadRequiredFiles(req.file);
+    const uploadedAvatarImgFile = await uploadRequiredFiles(req.file);
 
     // Update user with new avatar
     user.avatar = {

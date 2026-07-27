@@ -9,4 +9,4 @@ mongoose.connect(process.env.MONGO_URI)
             console.log("Server running");
         });
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error("error",err));

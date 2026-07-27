@@ -1,11 +1,11 @@
-import { deleteOnCloudinary, uploadOnCloudinary } from "../utils/cloudinary";
+import { deleteOnCloudinary, uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const optionsObject = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production"
 }
 
-export const uploadRequiredFiles = (file) => {
+export const uploadRequiredFiles = async (file) => {
     // take the local path
     const localPath = file?.path
 
@@ -22,7 +22,7 @@ export const uploadRequiredFiles = (file) => {
     return uploadedFile
 }
 
-export const deleteOldFile = (file) => {
+export const deleteOldFile = async (file) => {
     const publicId = file?.publicId;
 
     // Delete old avatar from cloudinary

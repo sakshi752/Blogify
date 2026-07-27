@@ -1,7 +1,8 @@
-export const BASE_URL = 'http://localhost:3000/api/';
+export const BASE_URL = 'http://localhost:3000/api/v1/';
 export const ENDPOINTS = {
     LOGIN: "/login",
     REGISTER: "/register",
+    LOGOUT:'/logout',
     USER: "user",
     TODOS: "todos"
 }

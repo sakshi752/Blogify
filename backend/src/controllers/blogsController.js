@@ -59,7 +59,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
         await deleteOldFile(blog.coverImage)
 
         // upload on cloudinary
-        const uploadedImgFile = uploadRequiredFiles(req.file);
+        const uploadedImgFile =await uploadRequiredFiles(req.file);
 
         // Update user with new avatar
         blog.coverImage = {

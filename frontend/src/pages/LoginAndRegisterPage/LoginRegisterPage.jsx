@@ -1,59 +1,72 @@
 import React, { useEffect, useState } from 'react'
 import * as Yup from "yup"
-import { useMatch, NavLink } from "react-router-dom"
+import { useMatch, NavLink, useLocation, useNavigate } from "react-router-dom"
 import { loginFields, registerFields } from '../../utils'
 import CommanForm from '../../Components/CommanForm/CommanForm'
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
+import { loginUserService, registerUserService } from './LoginRegisterApiService'
+import { useDispatch } from 'react-redux'
 
 
 const LoginRegisterPage = () => {
-  const [isLogin, setIsLogin] = useState(useMatch("/login"))
-
-  const [intialValues, setInitialValues] = useState({})
-  const [validationSchema, setValidationSchema] = useState({})
-
-  useEffect(() => {
-    if (isLogin) {
-
-      setInitialValues({
+  const location = useLocation();
+  const [isLogin, setIsLogin] = useState(location.pathname === "/login");
+  const [initialValues, setInitialValues] = useState(
+    isLogin
+      ? {
         identifier: "",
-        password: ""
-      })
-
-      setValidationSchema(
-        Yup.object({
-          identifier: Yup.string().required("Required"),
-          password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
-        }))
-
-    } else {
-      setInitialValues({
+        password: "",
+      }
+      : {
         email: "",
         username: "",
         password: "",
         fullname: "",
-        avatar: null
-      })
-
-      setValidationSchema(Yup.object({
-        fullname: Yup.string().required("Required"),
-        username: Yup.string().required("Required"),
-        email: Yup.string().email().required("Required"),
-        password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
-      }))
-    }
-  }, [isLogin])
-
-  const onSubmit =async (values) => {
-    try {
-      const requrestBody ={
-
+        avatar: null,
       }
-      co
+  );
+  const [validationSchema, setValidationSchema] = useState(
+    isLogin ? Yup.object({
+      identifier: Yup.string().required("Required"),
+      password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
+    }) : Yup.object({
+      fullname: Yup.string().required("Required"),
+      username: Yup.string().required("Required"),
+      email: Yup.string().email().required("Required"),
+      password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
+    })
+  )
+
+  console.log("int ", initialValues)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const onSubmit = async (values) => {
+    try {
+      console.log("vals", values);
+      if (isLogin) {
+        const requestBody = {
+          identifier: values.identifier,
+          password: values.password
+        }
+        loginUserService(requestBody, dispatch, navigate)
+      } else {
+        const formData = new FormData();
+
+        formData.append("email", values.email);
+        formData.append("username", values.username);
+        formData.append("password", values.password);
+        formData.append("fullname", values.fullname);
+
+        formData.append("avatar", values.avatar);
+        registerUserService(formData, dispatch, navigate)
+      }
+     
     } catch (error) {
       toast.error(error)
     }
   }
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -72,7 +85,7 @@ const LoginRegisterPage = () => {
 
         {/* Form */}
         <CommanForm
-          initialValues={intialValues}
+          initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
           fields={isLogin ? loginFields : registerFields}
