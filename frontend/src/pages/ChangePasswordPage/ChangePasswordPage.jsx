@@ -8,6 +8,7 @@ import {
 } from "formik";
 import * as Yup from "yup"
 import { updatePwFields } from '../../utils';
+import { toast } from 'react-toastify';
 
 const ChangePasswordPage = () => {
   const [initialValues, setInitialValues] = useState({
@@ -17,8 +18,16 @@ const ChangePasswordPage = () => {
   const [validationSchema, setValidationSchema] = useState(Yup.object({
 
   }))
-  const onSubmit = (values) => {
+  const onSubmit =async (values) => {
+    try {
+      const requestBody ={
+        oldPw:values.oldPw,
+        newPw:values.newPw
+      }
 
+    } catch (error) {
+      toast.error(error)
+    }
   }
   return (
     <div className='max-w-7xl mx-auto bg-blue-400/30 backdrop-blur-md rounded-2xl shadow-lg p-8'>
@@ -34,10 +43,10 @@ const ChangePasswordPage = () => {
           onSubmit={onSubmit}
           fields={updatePwFields}
           buttonText={"Update"}
-          formClassName="space-y-6 text-white"
+          formClassName="space-y-6"
           inputContainerClassName=""
-          labelClassName="block mb-2 text-lg font-medium"
-          inputClassName="w-[50%]"
+          labelClassName="block mb-2 text-lg font-medium text-white"
+          inputClassName="w-[50%] p-2 bg-gray-300/50 text-white rounded outline-none"
           buttonClassName="w-[20%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
           buttons={[
             {
@@ -45,7 +54,6 @@ const ChangePasswordPage = () => {
               type: "submit",
               className:
                 "w-[20%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold",
-              onClick:onSubmit
             },
             {
               text: "Cancel",
@@ -57,9 +65,6 @@ const ChangePasswordPage = () => {
           ]}
         />
       </div>
-
-
-
     </div>
   )
 }
