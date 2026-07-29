@@ -2,7 +2,7 @@ export const BASE_URL = 'http://localhost:3000/api/v1/';
 export const ENDPOINTS = {
     LOGIN: "/login",
     REGISTER: "/register",
-    LOGOUT:'/logout',
+    LOGOUT: '/logout',
     USER: "user",
     TODOS: "todos"
 }
@@ -48,9 +48,41 @@ export const registerFields = [
         placeholder: "Enter password"
     },
     {
-        name:"avatar",
-        label:"Avatar",
-        type:"file",
-        accept:"image/*"
+        name: "avatar",
+        label: "Avatar",
+        type: "file",
+        accept: "image/*"
     }
 ]
+
+import { FaUserEdit } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { MdArticle } from "react-icons/md";
+
+export const sideBarItems = [
+    {
+        title: "Dashboard",
+        pages: [
+            {
+                pageTitle: "Blogs",
+                icon: MdArticle,
+                path: "/blogs"
+            }
+        ]
+    },
+    {
+        title: "Settings",
+        pages: [
+            {
+                pageTitle: "Edit User",
+                icon: FaUserEdit,
+                path: "/settings/update-user"
+            },
+            {
+                pageTitle: "Change Password",
+                icon: RiLockPasswordLine,
+                path: "/settings/update-password"
+            }
+        ]
+    }
+];

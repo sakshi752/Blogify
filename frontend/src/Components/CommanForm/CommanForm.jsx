@@ -22,7 +22,7 @@ const CommanForm = ({
             {({ setFieldValue }) => (
                 <Form>
                     {fields.map((field) => (
-                        <div key={field.name} className="mb-5">
+                        <div key={field.name} className="mb-5 text-gray-700">
                             <label className="block mb-2 text-sm font-medium text-gray-700">
                                 {field.label}
                             </label>

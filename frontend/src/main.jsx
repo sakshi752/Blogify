@@ -11,13 +11,16 @@ import {
   RouterProvider
 } from 'react-router-dom'
 
-import Layout from './Layout.jsx'
+import Layout from './Layouts/Layout.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage/HomePage.jsx'
 import BlogPage from './pages/BlogPage/BlogPage.jsx'
 import LoginRegisterPage from './pages/LoginAndRegisterPage/LoginRegisterPage.jsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import { PersistGate } from 'redux-persist/integration/react'
+import UpdateUserPage from './pages/UpdateUserPage/UpdateUserPage.jsx'
+import DashboardLayout from './Layouts/DashboardLayout.jsx'
+import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage.jsx'
 
 
 const publicRoutes = [
@@ -74,6 +77,21 @@ const router = createBrowserRouter(
           element={route.element}
         />
       ))}
+
+      {
+        // Dashboard Layout
+        <Route element={<DashboardLayout />}>
+          {/* <Route path="/blogs" element={<Blogs />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/write" element={<WriteBlog />} /> */}
+
+          <Route path="settings">
+        <Route path="update-user" index element={<UpdateUserPage />} />
+        <Route path="update-password" element={<ChangePasswordPage />} />
+    </Route>
+
+        </Route>
+      }
 
     </Route>
   )

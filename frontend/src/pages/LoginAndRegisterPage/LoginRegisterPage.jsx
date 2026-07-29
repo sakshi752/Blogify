@@ -37,12 +37,10 @@ const LoginRegisterPage = () => {
     })
   )
 
-  console.log("int ", initialValues)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const onSubmit = async (values) => {
     try {
-      console.log("vals", values);
       if (isLogin) {
         const requestBody = {
           identifier: values.identifier,
