@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { Provider } from "react-redux"
+import { Provider, useSelector } from "react-redux"
 import { persistor, store } from './redux/store'
 
 import {
@@ -50,7 +50,6 @@ const protectedRoutes = [
   }
 ]
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
@@ -67,8 +66,7 @@ const router = createBrowserRouter(
           element={route.element}
         />
       ))}
-
-
+      
       {/* Loop through protected routes */}
       {protectedRoutes.map((route) => (
         <Route

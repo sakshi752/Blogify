@@ -89,7 +89,7 @@ const LoginRegisterPage = () => {
           fields={isLogin ? loginFields : registerFields}
           buttonText={isLogin ? "Login" : "Register"}
           inputContainerClassName="mb-5 text-gray-700"
-          inputClassName="w-full"
+          inputClassName="w-full p-2 bg-gray-300/50 rounded outline-none"
           buttonClassName="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
           labelClassName="block mb-2 text-sm font-medium text-gray-700"
           buttons={
