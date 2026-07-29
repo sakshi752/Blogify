@@ -10,7 +10,11 @@ const CommanForm = ({
     validationSchema,
     onSubmit,
     fields,
-    buttonText,
+    formClassName = "",
+    inputContainerClassName = "",
+    inputClassName = "",
+    labelClassName = "",
+    buttons = []
 }) => {
     return (
         <Formik
@@ -20,10 +24,14 @@ const CommanForm = ({
             enableReinitialize
         >
             {({ setFieldValue }) => (
-                <Form>
+                <Form className={formClassName}>
+
                     {fields.map((field) => (
-                        <div key={field.name} className="mb-5 text-gray-700">
-                            <label className="block mb-2 text-sm font-medium text-gray-700">
+                        <div 
+                            key={field.name} 
+                            className={inputContainerClassName}
+                        >
+                            <label className={labelClassName}>
                                 {field.label}
                             </label>
 
@@ -37,14 +45,14 @@ const CommanForm = ({
                                             event.currentTarget.files[0]
                                         );
                                     }}
-                                    className="w-full"
+                                    className={inputClassName}
                                 />
                             ) : (
                                 <Field
                                     type={field.type}
                                     name={field.name}
                                     placeholder={field.placeholder}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                    className={inputClassName}
                                 />
                             )}
 
@@ -56,14 +64,19 @@ const CommanForm = ({
                         </div>
                     ))}
 
-                    <div>
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
-                        >
-                            {buttonText}
-                        </button>
+
+                    <div className="flex gap-4">
+                        {buttons.map((button) => (
+                            <button
+                                key={button.text}
+                                type={button.type || "button"}
+                                className={button.className}
+                            >
+                                {button.text}
+                            </button>
+                        ))}
                     </div>
+
                 </Form>
             )}
         </Formik>

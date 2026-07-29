@@ -1,9 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
+import CommanForm from '../../Components/CommanForm/CommanForm'
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+} from "formik";
+import * as Yup from "yup"
+import { updatePwFields } from '../../utils';
 
 const ChangePasswordPage = () => {
+  const [initialValues, setInitialValues] = useState({
+    oldPw: "",
+    newPw: ""
+  })
+  const [validationSchema, setValidationSchema] = useState(Yup.object({
+
+  }))
+  const onSubmit = (values) => {
+
+  }
   return (
-    <div>
-      
+    <div className='max-w-7xl mx-auto bg-blue-400/30 backdrop-blur-md rounded-2xl shadow-lg p-8'>
+      <div className="text-3xl font-bold mb-8 text-center">
+        <h1>Change Password</h1>
+      </div>
+
+
+      <div className=''>
+        <CommanForm
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+          fields={updatePwFields}
+          buttonText={"Update"}
+          formClassName="space-y-6 text-white"
+          inputContainerClassName=""
+          labelClassName="block mb-2 text-lg font-medium"
+          inputClassName="w-[50%]"
+          buttonClassName="w-[20%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
+          buttons={[
+            {
+              text: "Update",
+              type: "submit",
+              className:
+                "w-[20%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold",
+              onClick:onSubmit
+            },
+            {
+              text: "Cancel",
+              type: "button",
+              onClick: () => console.log("cancel clicked"),
+              className:
+                "w-[20%] bg-gray-500 hover:bg-gray-600 text-white py-3 rounded-lg font-semibold"
+            }
+          ]}
+        />
+      </div>
+
+
+
     </div>
   )
 }

@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 import { TfiWrite } from "react-icons/tfi";
 import { IoIosNotifications } from "react-icons/io";
+import { logout } from '../redux/features/auth/authSlice';
 
 const Header = () => {
   const { isAuthenticated, user, token } = useSelector(
     (state) => state.auth
   );
 
+  // const dispatch = useDispatch()
+  // dispatch(logout())
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
   useEffect(() => {

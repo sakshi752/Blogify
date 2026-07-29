@@ -58,7 +58,7 @@ const LoginRegisterPage = () => {
         formData.append("avatar", values.avatar);
         registerUserService(formData, dispatch, navigate)
       }
-     
+
     } catch (error) {
       toast.error(error)
     }
@@ -88,6 +88,20 @@ const LoginRegisterPage = () => {
           onSubmit={onSubmit}
           fields={isLogin ? loginFields : registerFields}
           buttonText={isLogin ? "Login" : "Register"}
+          inputContainerClassName="mb-5 text-gray-700"
+          inputClassName="w-full"
+          buttonClassName="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
+          labelClassName="block mb-2 text-sm font-medium text-gray-700"
+          buttons={
+            [
+              {
+              text: `${isLogin ? "Login" : "Register"}`,
+              type: "submit",
+              className:
+                "w-[20%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+            }
+            ]
+          }
         />
 
         {/* Divider */}

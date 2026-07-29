@@ -32,7 +32,7 @@ export const registerFields = [
     {
         name: "email",
         label: "Email",
-        type: "text",
+        type: "email",
         placeholder: "Enter email"
     },
     {
@@ -52,6 +52,48 @@ export const registerFields = [
         label: "Avatar",
         type: "file",
         accept: "image/*"
+    }
+]
+
+export const updateUserFields = [
+    {
+        name: "fullname",
+        label: "Fullname",
+        type: "text",
+        placeholder: "Enter fullname"
+    },
+    {
+        name: "username",
+        label: "Username",
+        type: "text",
+        placeholder: "Enter Username"
+    },
+    {
+        name: "email",
+        label: "Email",
+        type: "email",
+        placeholder: "Enter email"
+    },
+    {
+        name:"bio",
+        label:"Bio",
+        type:"text",
+        placeholder:"Enter bio"
+    }
+]
+
+export const updatePwFields = [
+    {
+        name: "old-password",
+        label: "Old Password",
+        type: "password",
+        placeholder: "Enter Old password"
+    },
+    {
+        name: "new-password",
+        label: "New Password",
+        type: "password",
+        placeholder: "Enter New password"
     }
 ]
 

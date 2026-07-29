@@ -86,9 +86,9 @@ const router = createBrowserRouter(
           <Route path="/write" element={<WriteBlog />} /> */}
 
           <Route path="settings">
-        <Route path="update-user" index element={<UpdateUserPage />} />
-        <Route path="update-password" element={<ChangePasswordPage />} />
-    </Route>
+            <Route path="update-user" index element={<UpdateUserPage />} />
+            <Route path="update-password" element={<ChangePasswordPage />} />
+          </Route>
 
         </Route>
       }
