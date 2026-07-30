@@ -4,7 +4,8 @@ export const ENDPOINTS = {
     REGISTER: "/register",
     LOGOUT: '/logout',
     USER: "user",
-    TODOS: "todos"
+    TODOS: "todos",
+    CHANGE_PASSWORD:"/change-password"
 }
 
 export const loginFields = [
@@ -84,13 +85,13 @@ export const updateUserFields = [
 
 export const updatePwFields = [
     {
-        name: "old-password",
+        name: "oldPw",
         label: "Old Password",
         type: "password",
         placeholder: "Enter Old password"
     },
     {
-        name: "new-password",
+        name: "newPw",
         label: "New Password",
         type: "password",
         placeholder: "Enter New password"

@@ -212,13 +212,13 @@ export const forgetPassword = asyncHandler(async (req, res) => {
 
 export const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body
-
     validateRequiredFields({ oldPassword, newPassword })
+    
 
-    const user = User.findById(req.user?.id);
+    const user =await User.findById(req.user?.id);
 
     const isPwCorrect = await user.isPasswordCorrect(oldPassword)
-
+  
     if (!isPwCorrect) {
         throw new ApiError(401, "Invalid Old Password")
     }

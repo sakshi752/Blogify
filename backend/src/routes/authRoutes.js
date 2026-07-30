@@ -12,7 +12,7 @@ router.post("/refresh-token",refreshAccessToken)
 
 // secured user routes
 router.post("/logout",authenticationMiddleware,logoutUser)
-router.post("/change-password",authenticationMiddleware,changeCurrentPassword)
+router.patch("/change-password",authenticationMiddleware,changeCurrentPassword)
 router.get("/get-user",authenticationMiddleware,getCurrentUser)
 router.patch("/update-user",authenticationMiddleware,updateUserProfile)
 router.patch("/update-avatar",authenticationMiddleware,upload.single('avatar'),updateAvatar)

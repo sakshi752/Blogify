@@ -32,10 +32,10 @@ const UpdateUserPage = () => {
   return (
 
     <div className='max-w-7xl mx-auto bg-blue-400/30 backdrop-blur-md rounded-2xl shadow-lg p-8'>
+
       <div className="text-3xl font-bold mb-8 text-center">
         <h1>Update your profile</h1>
       </div>
-
 
       <div className='grid grid-cols-1 lg:grid-cols-3'>
         {/* left */}
@@ -64,6 +64,9 @@ const UpdateUserPage = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
             fields={updateUserFields}
+            formClassName="space-y-6"
+            labelClassName="block mb-2 text-lg font-medium text-white"
+            inputClassName="w-[70%] p-2 bg-gray-300/50 text-white rounded outline-none"
              buttons={[
             {
               text: "Update",
@@ -83,8 +86,7 @@ const UpdateUserPage = () => {
           />
         </div>
       </div>
-
-
+      
     </div>
   )
 }

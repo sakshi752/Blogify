@@ -16,7 +16,7 @@ export const authenticationMiddleware = asyncHandler(
         if (!token) {
             throw new ApiError(
                 401,
-                "Unauthorized request"
+                "Unauthorized request! Please send token"
             );
         }
 
