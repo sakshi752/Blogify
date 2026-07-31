@@ -114,34 +114,42 @@ export const blogFields = [
     },
 ]
 
-import { FaUserEdit } from "react-icons/fa";
+import { FaHome, FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { MdArticle } from "react-icons/md";
 
 export const sideBarItems = [
     {
-        title: "Dashboard",
-        pages: [
-            {
-                pageTitle: "Blogs",
-                icon: MdArticle,
-                path: "/blogs"
-            }
-        ]
+        pageTitle: "Home",
+        icon: FaHome,
+        path: "/"
     },
     {
-        title: "Settings",
-        pages: [
-            {
-                pageTitle: "Edit User",
-                icon: FaUserEdit,
-                path: "/settings/update-user"
-            },
-            {
-                pageTitle: "Change Password",
-                icon: RiLockPasswordLine,
-                path: "/settings/update-password"
-            }
-        ]
+        pageTitle: "Stories",
+        icon: MdArticle,
+        path: "/me/blogs"
+    },
+    {
+        pageTitle: "Stories",
+        icon: MdArticle,
+        path: "/me/blogs"
+    },
+    {
+        pageTitle: "Blogs",
+        icon: MdArticle,
+        path: "/blogs"
     }
 ];
+
+export const settingOptions = [
+      {
+        pageTitle: "Update Details",
+        icon: FaUserEdit,
+        path: "/settings/update-user"
+    },
+      {
+        pageTitle: "Update Password",
+        icon: RiLockPasswordLine,
+        path: "/settings/update-password"
+    },
+]

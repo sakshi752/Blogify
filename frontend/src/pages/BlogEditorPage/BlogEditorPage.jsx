@@ -2,61 +2,70 @@ import { useState } from "react";
 import BlogEditor from "../../Components/BlogEditor/BlogEditor";
 
 const BlogEditorPage = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState(null);
-  const [coverImage, setCoverImage] = useState(null);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState(null);
+    const [coverImage, setCoverImage] = useState(null);
 
-  const handleSubmit = async (status) => {
-    const formData = new FormData();
+    const handleSubmit = async (status) => {
+        const formData = new FormData();
+        console.log("content ",content)
+        formData.append("title", title);
+        formData.append("content", JSON.stringify(content));
+        formData.append("status", status);
 
-    formData.append("title", title);
-    formData.append("content", JSON.stringify(content));
-    formData.append("status", status);
+        if (coverImage) {
+            formData.append("coverImage", coverImage);
+        }
 
-    if (coverImage) {
-      formData.append("coverImage", coverImage);
-    }
+        console.log(formData);
+    };
 
-    console.log(formData);
-  };
+    return (
+        <div className="max-w-4xl mx-auto py-10">
 
-  return (
-    <div className="max-w-4xl mx-auto py-10">
+            <label className="mt-6 cursor-pointer">
 
-      <input
-        type="file"
-        onChange={(e) => setCoverImage(e.target.files[0])}
-      />
+                <span className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Upload Picture
+                </span>
 
-      <textarea
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-        className="w-full text-5xl font-bold bg-transparent outline-none mt-6"
-      />
+                <input
+                    type="file"
+                    className="hidden"
+                    // onChange={(event) => onAvatarChange(event)}
+                />
 
-      <BlogEditor
-        content={content}
-        setContent={setContent}
-      />
+            </label>
 
-      <div className="flex gap-4 mt-8">
-        <button
-          onClick={() => handleSubmit("DRAFT")}
-          className="bg-gray-500 px-6 py-2 rounded"
-        >
-          Draft
-        </button>
+            <textarea
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Title"
+                className="w-full text-5xl font-bold bg-transparent outline-none mt-6"
+            />
 
-        <button
-          onClick={() => handleSubmit("PUBLISHED")}
-          className="bg-blue-600 px-6 py-2 rounded"
-        >
-          Publish
-        </button>
-      </div>
-    </div>
-  );
+            <BlogEditor
+                content={content}
+                setContent={setContent}
+            />
+
+            <div className="flex gap-4 mt-8">
+                <button
+                    onClick={() => handleSubmit("DRAFT")}
+                    className="bg-gray-500 px-6 py-2 rounded"
+                >
+                    Draft
+                </button>
+
+                <button
+                    onClick={() => handleSubmit("PUBLISHED")}
+                    className="bg-blue-600 px-6 py-2 rounded"
+                >
+                    Publish
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default BlogEditorPage;

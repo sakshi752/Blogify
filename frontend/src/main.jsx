@@ -22,6 +22,7 @@ import UpdateUserPage from './pages/UpdateUserPage/UpdateUserPage.jsx'
 import DashboardLayout from './Layouts/DashboardLayout.jsx'
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage.jsx'
 import BlogEditorPage from './pages/BlogEditorPage/BlogEditorPage.jsx'
+import ProtectedRoute from './ProtectedRoute.jsx'
 
 
 const publicRoutes = [
@@ -45,6 +46,10 @@ const publicRoutes = [
 
 
 const protectedRoutes = [
+    {
+    path: '/dashboard',
+    element: <HomePage />
+  },
   {
     path: '/profile',
     element: <ProfilePage />
@@ -71,31 +76,20 @@ const router = createBrowserRouter(
           element={route.element}
         />
       ))}
-      
-      {/* Loop through protected routes */}
-      {protectedRoutes.map((route) => (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={route.element}
-        />
-      ))}
 
-      {
-        // Dashboard Layout
+
+
+      <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
-          {/* <Route path="/blogs" element={<Blogs />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/write" element={<WriteBlog />} /> */}
-
-          <Route path="settings">
-            <Route path="update-user" index element={<UpdateUserPage />} />
-            <Route path="update-password" element={<ChangePasswordPage />} />
-          </Route>
-
+          {protectedRoutes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
+          ))}
         </Route>
-      }
-
+      </Route>
     </Route>
   )
 )

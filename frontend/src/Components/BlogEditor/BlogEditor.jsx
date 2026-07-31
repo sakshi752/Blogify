@@ -1,74 +1,119 @@
-import React from 'react'
+import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+import "./BlogEditor.css";
 
 const BlogEditor = ({ content, setContent }) => {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder: "Tell your story...",
+      }),
+    ],
 
-    const editor = useEditor({
-        extensions: [
-            StarterKit
-        ],
-        content: content || "",
+    content: content || "",
 
-        onUpdate: ({ editor }) => {
-            setContent(editor.getJSON());
-        },
-    })
+    editorProps: {
+      attributes: {
+        class:
+          "min-h-[500px] outline-none text-white text-lg leading-8 p-4",
+      },
+    },
 
-    if (!editor) {
-        return null;
-    }
+    onUpdate: ({ editor }) => {
+      setContent(editor.getJSON());
+    },
+  });
 
-    return (
-        <div className="border rounded-lg p-4">
+  if (!editor) return null;
 
-            <div className="flex gap-3 mb-4">
+  return (
+    <div className="max-w-4xl mx-auto p-6 rounded-xl bg-slate-900 border border-slate-700">
+      {/* Toolbar */}
+      <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-700 pb-4">
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          Bold
+        </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        editor.chain().focus().toggleBold().run()
-                    }
-                    className="px-3 py-1 bg-gray-200 rounded"
-                >
-                    Bold
-                </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          Italic
+        </button>
 
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          H1
+        </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        editor.chain().focus().toggleItalic().run()
-                    }
-                    className="px-3 py-1 bg-gray-200 rounded"
-                >
-                    Italic
-                </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          H2
+        </button>
 
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleBulletList().run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          • List
+        </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        editor.chain()
-                            .focus()
-                            .toggleHeading({ level: 2 })
-                            .run()
-                    }
-                    className="px-3 py-1 bg-gray-200 rounded"
-                >
-                    H2
-                </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleOrderedList().run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          1. List
+        </button>
 
-            </div>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleBlockquote().run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          Quote
+        </button>
 
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleCodeBlock().run()
+          }
+          className="px-3 py-1 bg-slate-700 rounded"
+        >
+          Code
+        </button>
+      </div>
 
-            <EditorContent
-                editor={editor}
-                className="min-h-[300px]"
-            />
+      {/* Editor */}
+      <EditorContent editor={editor} />
+    </div>
+  );
+};
 
-        </div>
-    );
-}
-
-export default BlogEditor
+export default BlogEditor;

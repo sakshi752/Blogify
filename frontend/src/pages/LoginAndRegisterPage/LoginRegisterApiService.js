@@ -35,7 +35,7 @@ export const loginUserService = async (requestBody, dispatch, navigate) => {
                     isAuthenticated: data.success,
                 })
             );
-            navigate("/")
+            navigate("/dashboard")
         } else {
             toast.error(data.message ? data.message : "Something went wrong!")
         }

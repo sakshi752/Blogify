@@ -1,0 +1,25 @@
+.ProseMirror {
+  min-height: 500px;
+  outline: none;
+  color: white;
+  font-size: 18px;
+}
+
+.ProseMirror h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.ProseMirror h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.ProseMirror p {
+  margin-top: 1rem;
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid gray;
+  padding-left: 1rem;
+}
