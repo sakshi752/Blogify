@@ -21,6 +21,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import UpdateUserPage from './pages/UpdateUserPage/UpdateUserPage.jsx'
 import DashboardLayout from './Layouts/DashboardLayout.jsx'
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage.jsx'
+import BlogEditorPage from './pages/BlogEditorPage/BlogEditorPage.jsx'
 
 
 const publicRoutes = [
@@ -47,6 +48,10 @@ const protectedRoutes = [
   {
     path: '/profile',
     element: <ProfilePage />
+  },
+  {
+    path: '/write-blog',
+    element: <BlogEditorPage />
   }
 ]
 

@@ -9,7 +9,7 @@ export const changePwService = async (requestBody, dispatch, navigate, token) =>
 
         if (response.status === 200 || data.statusCode === 200) {
             toast.success(data.message ? data.message : "Password is changed successfully!")
-            navigate("/")
+            // navigate("/")
         }else {
             toast.error(data.message ? data.message : "Something went wrong!")
         }

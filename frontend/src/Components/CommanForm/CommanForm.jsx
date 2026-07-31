@@ -10,11 +10,12 @@ const CommanForm = ({
     validationSchema,
     onSubmit,
     fields,
+    buttons = [],
     formClassName = "",
     inputContainerClassName = "",
     inputClassName = "",
     labelClassName = "",
-    buttons = []
+
 }) => {
     return (
         <Formik
@@ -23,12 +24,12 @@ const CommanForm = ({
             onSubmit={onSubmit}
             enableReinitialize
         >
-            {({ setFieldValue }) => (
+            {({ setFieldValue, resetForm }) => (
                 <Form className={formClassName}>
 
                     {fields.map((field) => (
-                        <div 
-                            key={field.name} 
+                        <div
+                            key={field.name}
                             className={inputContainerClassName}
                         >
                             <label className={labelClassName}>
@@ -71,6 +72,8 @@ const CommanForm = ({
                                 key={button.text}
                                 type={button.type || "button"}
                                 className={button.className}
+                                //    onClick={button.type !== "submit" ? button.onClick : undefined}
+                                onClick={() => button.onClick?.(resetForm)}
                             >
                                 {button.text}
                             </button>

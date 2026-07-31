@@ -5,7 +5,9 @@ export const ENDPOINTS = {
     LOGOUT: '/logout',
     USER: "user",
     TODOS: "todos",
-    CHANGE_PASSWORD:"/change-password"
+    CHANGE_PASSWORD: "/change-password",
+    UPDATE_AVATAR: "/update-avatar",
+    UPDATE_USER: "/update-user"
 }
 
 export const loginFields = [
@@ -76,10 +78,10 @@ export const updateUserFields = [
         placeholder: "Enter email"
     },
     {
-        name:"bio",
-        label:"Bio",
-        type:"text",
-        placeholder:"Enter bio"
+        name: "bio",
+        label: "Bio",
+        type: "text",
+        placeholder: "Enter bio"
     }
 ]
 
@@ -96,6 +98,20 @@ export const updatePwFields = [
         type: "password",
         placeholder: "Enter New password"
     }
+]
+
+export const blogFields = [
+    {
+        name: "title",
+        label: "Title",
+        type: "text",
+        placeholder: "Enter title",
+    },
+    {
+        name: "coverImage",
+        label: "Cover Image",
+        type: "file",
+    },
 ]
 
 import { FaUserEdit } from "react-icons/fa";

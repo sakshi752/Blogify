@@ -11,7 +11,7 @@ import {
     validatePw,
     validateRequiredFields
 } from "../utils/validators.js";
-import { optionsObject, uploadRequiredFiles,deleteOldFile } from '../services/global.js';
+import { optionsObject, uploadRequiredFiles, deleteOldFile } from '../services/global.js';
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
@@ -213,12 +213,12 @@ export const forgetPassword = asyncHandler(async (req, res) => {
 export const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body
     validateRequiredFields({ oldPassword, newPassword })
-    
 
-    const user =await User.findById(req.user?.id);
+
+    const user = await User.findById(req.user?.id);
 
     const isPwCorrect = await user.isPasswordCorrect(oldPassword)
-  
+
     if (!isPwCorrect) {
         throw new ApiError(401, "Invalid Old Password")
     }
@@ -251,8 +251,8 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     const user = req.user
 
     if (bio || fullname) {
-        user.bio = bio
-        user.fullname = fullname
+        user.bio = bio ? bio : user.bio
+        user.fullname = fullname ? fullname : user.fullname
     }
 
     // check if username is give and it is not equal to the username of logged in user
@@ -304,7 +304,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     });
 
 
-    const updateUser = User.findById(user._id).select("-password -refreshToken");
+    const updateUser = await User.findById(user._id).select("-password -refreshToken");
 
     // Return updated user
     return res
@@ -313,9 +313,8 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
             new ApiResponse(
                 200,
                 "User Updated SeccessFully",
-                {
-                    user: updateUser,
-                }
+                updateUser,
+
             )
         )
 })

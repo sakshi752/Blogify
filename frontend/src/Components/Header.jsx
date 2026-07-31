@@ -7,11 +7,12 @@ import { TfiWrite } from "react-icons/tfi";
 import { IoIosNotifications } from "react-icons/io";
 import { logout } from '../redux/features/auth/authSlice';
 
+
 const Header = () => {
   const { isAuthenticated, user, token } = useSelector(
     (state) => state.auth
   );
-
+  // console.log("user ",user)
   // const dispatch = useDispatch()
   // dispatch(logout())
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -43,16 +44,16 @@ const Header = () => {
         <div className='flex gap-5'>
           {isAuthenticated ? <>
             <div className='flex items-center justify-center gap-3'>
-              <div  className='bg-blue-400 p-2 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow shadow-white'>
+              <NavLink to={"/write-blog"}  className='bg-blue-400 p-2 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow shadow-white'>
                 <TfiWrite size={30} />
                 <span>Write</span>
-              </div>
+              </NavLink>
               <div className='bg-blue-400 p-2 rounded-full cursor-pointer shadow shadow-white'>
                 <IoIosNotifications size={30} />
               </div>
               <div className='relative shadow-white' ref={menuRef}>
                 <img
-                  src={user?.avatar}
+                  src={user?.avatar?.url}
                   alt={user?.fullname || "User Avatar"}
                   className="w-12 h-12 rounded-full object-cover border border-gray-300 cursor-pointer"
                   loading="lazy"
