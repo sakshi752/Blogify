@@ -10,6 +10,9 @@ export const authenticationMiddleware = asyncHandler(
         // decode token
         // find user via id from decodedToken and eliminate 
         // validate if user exists?
+        
+        // console.log("auth");
+        
         const token =
             req.cookies?.accessToken ||
             req.headers.authorization?.split(" ")[1];

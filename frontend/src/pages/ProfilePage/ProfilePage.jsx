@@ -1,20 +1,49 @@
 import React from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { getBlogsofLoggedInUser } from './ProfilePageApiService';
+import BlogCard from '../../Components/BlogCard/BlogCard';
 
 const ProfilePage = () => {
   const { user, token } = useSelector(
     (state) => state.auth
   );
+  const [blogs, setBlogs] = useState(null)
+  useEffect(() => {
+    getBlogs();
+  }, [])
+
+  const getBlogs = async () => {
+    try {
+      const params = {
+        userId: user._id,
+        page: 1,
+        limit: 2
+      }
+      const response = await getBlogsofLoggedInUser(params, token);
+      const result = await response.json();
+      setBlogs(result.data);
+
+    } catch (error) {
+      console.log("err ", error);
+    }
+  }
+  
   return (
     <div className='max-w-7xl mx-auto'>
-      <div className='grid grid-cols-1 lg:grid-cols-12 gap-8'>
-
-        <div>
-
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-8">
+          {blogs && blogs.map((blog)=>{
+            return (
+              <BlogCard key={blog._id} blog={blog}/>
+            )
+          })}
         </div>
 
-        <div className='lg:col-span-4'>
-          <div className='sticky top-2/4 bg-blue-400/20 backdrop-blur-md p-6'>
+        <div className="lg:col-span-4 flex justify-end">
+          <div className="sticky top-10 w-full max-w-sm bg-blue-400/20 backdrop-blur-md p-6 rounded-lg">
+
             <div className='flex items-center justify-center'>
               <img src={user.avatar.url} alt={user.fullname}
                 className='w-52 h-52 object-cover rounded-full'
@@ -48,7 +77,6 @@ const ProfilePage = () => {
                 <h2 className="font-bold">{user.followingCount}</h2>
                 <p>Following</p>
               </div>
-
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import {
 import * as Yup from "yup"
 import { updatePwFields } from '../../utils';
 import { toast } from 'react-toastify';
-import { changePwService } from './ChangePasswordPage';
+import { changePwService } from './SettingService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
