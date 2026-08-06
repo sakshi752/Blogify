@@ -7,7 +7,8 @@ export const ENDPOINTS = {
     TODOS: "todos",
     CHANGE_PASSWORD: "/change-password",
     UPDATE_AVATAR: "/update-avatar",
-    UPDATE_USER: "/update-user"
+    UPDATE_USER: "/update-user",
+    BLOGS:"blogs"
 }
 
 export const loginFields = [
@@ -100,20 +101,6 @@ export const updatePwFields = [
     }
 ]
 
-export const blogFields = [
-    {
-        name: "title",
-        label: "Title",
-        type: "text",
-        placeholder: "Enter title",
-    },
-    {
-        name: "coverImage",
-        label: "Cover Image",
-        type: "file",
-    },
-]
-
 import { FaHome, FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { MdArticle } from "react-icons/md";
@@ -122,7 +109,7 @@ export const sideBarItems = [
     {
         pageTitle: "Home",
         icon: FaHome,
-        path: "/"
+        path: "/dashboard"
     },
     {
         pageTitle: "Stories",

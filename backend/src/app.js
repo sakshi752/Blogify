@@ -21,7 +21,7 @@ import blogRoutes from "./routes/blogRoutes.js"
 import bookMarkRoutes from "./routes/bookmarkRoutes.js"
 
 app.use("/api/v1/user",authRoutes)
-app.use("/app/v1/blogs",blogRoutes);
-app.use("/app/v1/bookmark",bookMarkRoutes) 
+app.use("/api/v1/blogs",blogRoutes);
+app.use("/api/v1/bookmark",bookMarkRoutes) 
 
 export default app;

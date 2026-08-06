@@ -7,12 +7,11 @@ const ProtectedRoute = () => {
     (state) => state.auth
   );
 
-  console.log("Auth:", isAuthenticated);
 
   return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" replace />
+    <Navigate to="/" replace />
   );
 };
 

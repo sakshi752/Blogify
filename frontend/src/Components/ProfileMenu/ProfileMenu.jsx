@@ -5,7 +5,7 @@ import { logoutUserService } from '../../pages/LoginAndRegisterPage/LoginRegiste
 import { toast } from 'react-toastify';
 
 const ProfileMenu = () => {
-    const { token } = useSelector(
+    const { token, user } = useSelector(
         (state) => state.auth
     );
     const dispatch = useDispatch()
@@ -19,20 +19,31 @@ const ProfileMenu = () => {
         }
     }
     return (
-        <div className='absolute right-0 mt-3 w-72 rouded-xl shadow-2xl border overflow-hidden z-50 bg-blue-100 rounded'>
-            <div className='flex flex-col text-blue-950'>
-                <NavLink className="p-3 text-lg" to="/profile">
-                    My Profile
-                </NavLink>
-                <NavLink className="p-3 text-lg" to="/profile">
-                    Dashboard
-                </NavLink>
-                <NavLink className="p-3 text-lg" to="/settings/update-user">
-                    Settings
+        <div className='absolute right-0 mt-3 w-72 rouded-xl shadow-2xl border overflow-hidden z-50 bg-blue-100 rounded py-7 px-4 text-gray-700'>
+            <div>
+                <NavLink to={"/profile"} className="flex items-center space-x-5 cursor-pointer">
+                    <div>
+                        <img
+                            src={user?.avatar?.url}
+                            alt={user?.fullname || "User Avatar"}
+                            className="w-16 h-16 rounded-full object-cover border border-gray-300 cursor-pointer"
+                            loading="lazy"
+                        />
+                    </div>
+                    <div>
+                        <p className='text-xl font-semibold'>{user.fullname}</p>
+                        <span>view profile</span>
+                    </div>
+
                 </NavLink>
             </div>
+            {/* <div className='flex flex-col text-blue-950'>
+                <NavLink className=" text-lg" to="/settings/update-user">
+                    Settings
+                </NavLink>
+            </div> */}
 
-            <div className='bg-blue-400 p-5 flex items-center justify-center ' onClick={handleLogout}>
+            <div className=' p-5 flex items-center justify-center ' onClick={handleLogout}>
                 <button className="rounded-b-lg text-2xl font-semibold w-full cursor-pointer">
                     Logout
                 </button>

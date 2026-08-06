@@ -232,15 +232,11 @@ export const changeCurrentPassword = asyncHandler(async (req, res) => {
 })
 
 export const getCurrentUser = asyncHandler(async (req, res) => {
-    return res
-        .status(200)
-        .json(
-            new ApiResponse(
-                200,
-                req.user,
-                "Current user fetched successfully"
-            )
-        );
+    const bookmark = await Bookmark.findById(id);
+
+    if (!bookmark) {
+        throw new ApiError("404", "User have not bookmarked the blog of provided Id")
+    }
 });
 
 export const updateUserProfile = asyncHandler(async (req, res) => {

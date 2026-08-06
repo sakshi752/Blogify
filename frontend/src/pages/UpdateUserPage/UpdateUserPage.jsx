@@ -9,7 +9,7 @@ import {
 import * as Yup from "yup"
 import CommanForm from '../../Components/CommanForm/CommanForm';
 import { updateUserFields } from '../../utils';
-import { updateAvatarService, updateUserDetails } from './UpdateUserPage';
+import { updateAvatarService, updateUserDetails } from './UpdateUserService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';

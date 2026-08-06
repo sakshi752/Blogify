@@ -14,15 +14,15 @@ import {
 import Layout from './Layouts/Layout.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage/HomePage.jsx'
-import BlogPage from './pages/BlogPage/BlogPage.jsx'
+import BlogPage from './pages/BlogPages/BlogPage.jsx'
 import LoginRegisterPage from './pages/LoginAndRegisterPage/LoginRegisterPage.jsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import { PersistGate } from 'redux-persist/integration/react'
 import UpdateUserPage from './pages/UpdateUserPage/UpdateUserPage.jsx'
 import DashboardLayout from './Layouts/DashboardLayout.jsx'
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage.jsx'
-import BlogEditorPage from './pages/BlogEditorPage/BlogEditorPage.jsx'
-import ProtectedRoute from './ProtectedRoute.jsx'
+import BlogEditorPage from './pages/BlogPages/BlogEditorPage.jsx'
+import ProtectedRoute from './Layouts/ProtectedRoute.jsx'
 
 
 const publicRoutes = [
@@ -46,7 +46,7 @@ const publicRoutes = [
 
 
 const protectedRoutes = [
-    {
+  {
     path: '/dashboard',
     element: <HomePage />
   },
@@ -55,8 +55,20 @@ const protectedRoutes = [
     element: <ProfilePage />
   },
   {
-    path: '/write-blog',
-    element: <BlogEditorPage />
+    path: '/blogs/:id',
+    element: <BlogPage />
+  },
+  {
+    path: "/:userId/blogs/:id",
+    element: <BlogPage />
+  },
+  {
+    path: '/settings/update-user',
+    element: <UpdateUserPage />
+  },
+  {
+    path: '/settings/update-password',
+    element: <ChangePasswordPage />
   }
 ]
 
@@ -89,6 +101,7 @@ const router = createBrowserRouter(
             />
           ))}
         </Route>
+        <Route path='/add-blog' element={<BlogEditorPage />} />
       </Route>
     </Route>
   )

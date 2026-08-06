@@ -1,3 +1,4 @@
+import ApiError from "../utils/ApiError.js";
 import { deleteOnCloudinary, uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const optionsObject = {
@@ -8,14 +9,14 @@ export const optionsObject = {
 export const uploadRequiredFiles = async (file) => {
     // take the local path
     const localPath = file?.path
-
+    
     if (!localPath) {
         throw new ApiError(400, "File is required")
     }
 
     // upload it to cloudinary
     const uploadedFile = await uploadOnCloudinary(localPath);
-
+ 
     if (!uploadedFile) {
         throw new ApiError(400, "Error while uploading file on cloudinary")
     }

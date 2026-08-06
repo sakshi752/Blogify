@@ -6,34 +6,33 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { validateRequiredFields } from "../utils/validators.js";
 
 export const createBlog = asyncHandler(async (req, res) => {
-    // get the data for a blog from user
-    const { title, content, status } = req.body
+    let { title, content, status } = req.body;
 
-    validateRequiredFields({ title, content })
+    validateRequiredFields({ title, content });
 
-    // update status with default if it is not present
-    if (!['DRAFT', 'PUBLISHED'].some(status)) {
-        status = 'DRAFT'
+    const parsedContent = JSON.parse(content);
+
+    if (!['DRAFT', 'PUBLISHED'].includes(status)) {
+        status = 'DRAFT';
     }
 
-    // upload cover image on cloudinary
-    const uploadedImgFile = await uploadRequiredFiles(req.file)
+    const uploadedImgFile = await uploadRequiredFiles(req.file);
 
-    await Blog.create({
+    const blog = await Blog.create({
         title,
-        content,
+        content: parsedContent,
         author: req.user._id,
         status,
         coverImage: {
             url: uploadedImgFile.url,
             publicId: uploadedImgFile.public_id
-        },
-    })
+        }
+    });
 
     return res.status(200).json(
-        new ApiResponse(200, "Blog is created successfully")
-    )
-})
+        new ApiResponse(200, "Blog created successfully", { blogId: blog._id })
+    );
+});
 
 export const updateBlog = asyncHandler(async (req, res) => {
     const { id, title, content, status } = req.body;
@@ -59,7 +58,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
         await deleteOldFile(blog.coverImage)
 
         // upload on cloudinary
-        const uploadedImgFile =await uploadRequiredFiles(req.file);
+        const uploadedImgFile = await uploadRequiredFiles(req.file);
 
         // Update user with new avatar
         blog.coverImage = {
@@ -104,9 +103,27 @@ export const deleteBlog = asyncHandler(async (req, res) => {
 })
 
 export const getAllBlogs = asyncHandler(async (req, res) => {
-    
+   
 })
 
 export const getBlogById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
 
+    validateRequiredFields({ id });
+
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+        throw new ApiError("404", "Blog not found")
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                "",
+                blog,
+            )
+        );
 })

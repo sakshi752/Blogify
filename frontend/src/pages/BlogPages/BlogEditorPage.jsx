@@ -1,41 +1,70 @@
 import { useState } from "react";
 import BlogEditor from "../../Components/BlogEditor/BlogEditor";
+import { addBlog } from "./BlogService";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const BlogEditorPage = () => {
+    const { user, token } = useSelector(
+        (state) => state.auth
+    );
+    // console.log("user ",user);
+    
     const [title, setTitle] = useState("");
     const [content, setContent] = useState(null);
     const [coverImage, setCoverImage] = useState(null);
 
+    const [preview, setPreview] = useState("");
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const onCoverImageChange = (event) => {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        setCoverImage(file);
+        setPreview(URL.createObjectURL(file));
+    };
+
     const handleSubmit = async (status) => {
+
         const formData = new FormData();
-        console.log("content ",content)
         formData.append("title", title);
         formData.append("content", JSON.stringify(content));
         formData.append("status", status);
+        formData.append("coverImage", coverImage);
 
-        if (coverImage) {
-            formData.append("coverImage", coverImage);
-        }
+        await addBlog(formData,dispatch,navigate,token,user.username)
 
-        console.log(formData);
     };
 
     return (
         <div className="max-w-4xl mx-auto py-10">
+            <div>
+                {preview && (
+                    <img
+                        src={preview}
+                        alt="Cover preview"
+                        className="w-64 h-64 object-cover rounded-lg"
+                    />
+                )}
+                <label className=" cursor-pointer">
 
-            <label className="mt-6 cursor-pointer">
+                    <span className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+                        Upload Picture
+                    </span>
 
-                <span className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Upload Picture
-                </span>
+                    <input
+                        type="file"
+                        className="hidden"
+                        onChange={(event) => onCoverImageChange(event)}
+                    />
 
-                <input
-                    type="file"
-                    className="hidden"
-                    // onChange={(event) => onAvatarChange(event)}
-                />
+                </label>
+            </div>
 
-            </label>
 
             <textarea
                 value={title}

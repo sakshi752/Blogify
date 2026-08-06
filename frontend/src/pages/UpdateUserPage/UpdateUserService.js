@@ -38,12 +38,11 @@ export const updateUserDetails = async (requestBody, dispatch, navigate, token) 
                 })
             );
         } else {
-            console.log("dsad");
-            
+       
             toast.error(data.message ? data.message : "Something went wrong!")
         }
     } catch (error) {
-        console.log("sda")
+        
         toast.error("Internal server error")
     }
 }

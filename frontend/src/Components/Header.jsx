@@ -7,7 +7,6 @@ import { TfiWrite } from "react-icons/tfi";
 import { IoIosNotifications } from "react-icons/io";
 import { logout } from '../redux/features/auth/authSlice';
 
-
 const Header = () => {
   const { isAuthenticated, user, token } = useSelector(
     (state) => state.auth
@@ -17,6 +16,7 @@ const Header = () => {
   // dispatch(logout())
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -33,9 +33,11 @@ const Header = () => {
 
   return (
     <nav className='border-b-1 border-gray-400 pb-4 shadow-md'>
+
       <div className='flex justify-between px-40 pt-5'>
         <div className='flex items-end gap-5'>
-          <NavLink to="/" className={"text-2xl font-bold tracking-widest"}>Blogify</NavLink>
+
+          <NavLink to={isAuthenticated ? "/dashboard" : "/"} className={"text-2xl font-bold tracking-widest"}>Blogify</NavLink>
           {/* search */}
           <div className='shadow-lg'>
             <input type="text" className='bg-gray-200 rounded outline-none p-1' placeholder='Search' />
@@ -44,7 +46,7 @@ const Header = () => {
         <div className='flex gap-5'>
           {isAuthenticated ? <>
             <div className='flex items-center justify-center gap-3'>
-              <NavLink to={"/write-blog"}  className='bg-blue-400 p-2 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow shadow-white'>
+              <NavLink to={"/add-blog"} className='bg-blue-400 p-2 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow shadow-white'>
                 <TfiWrite size={30} />
                 <span>Write</span>
               </NavLink>

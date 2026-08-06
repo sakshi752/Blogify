@@ -13,5 +13,6 @@ router.get("/:id",getBlogById)
 router.post("/",authenticationMiddleware,upload.single('coverImage'),createBlog)
 router.patch("/:id",authenticationMiddleware,updateBlog)
 router.delete("/",authenticationMiddleware,deleteBlog)
+router.get("/:id",authenticationMiddleware,getBlogById)
 
 export default router
