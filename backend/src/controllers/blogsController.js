@@ -103,7 +103,34 @@ export const deleteBlog = asyncHandler(async (req, res) => {
 })
 
 export const getAllBlogs = asyncHandler(async (req, res) => {
-   
+    const {
+        userId,
+        status,
+        page = 1,
+        limit = 10
+    } = req.query;
+
+    const query = {}
+
+    if (userId) {
+        query.author = userId;
+    }
+
+    if (status) {
+        query.status = status;
+    }
+
+    const blogs = await Blog.find(query).skip((page - 1) * limit).limit(limit);
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                "",
+                blogs,
+            )
+        );
 })
 
 export const getBlogById = asyncHandler(async (req, res) => {
