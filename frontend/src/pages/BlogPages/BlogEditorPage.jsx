@@ -28,7 +28,7 @@ const BlogEditorPage = () => {
         setPreview(URL.createObjectURL(file));
     };
 
-    const handleSubmit = async (status) => {
+    const zhandleSubmit = async (status) => {
 
         const formData = new FormData();
         formData.append("title", title);

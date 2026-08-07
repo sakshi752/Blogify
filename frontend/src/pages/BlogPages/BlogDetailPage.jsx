@@ -5,7 +5,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { getBlogById } from "./BlogService";
 
-const BlogPage = () => {
+const BlogDetailPage = () => {
   const { token } = useSelector((state) => state.auth);
 
   const { id } = useParams();
@@ -152,4 +152,4 @@ const BlogPage = () => {
 };
 
 
-export default BlogPage;
+export default BlogDetailPage;

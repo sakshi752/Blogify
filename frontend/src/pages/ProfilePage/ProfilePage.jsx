@@ -19,7 +19,7 @@ const ProfilePage = () => {
       const params = {
         userId: user._id,
         page: 1,
-        limit: 2
+        limit: 5
       }
       const response = await getBlogsofLoggedInUser(params, token);
       const result = await response.json();
@@ -29,20 +29,24 @@ const ProfilePage = () => {
       console.log("err ", error);
     }
   }
-  
+
   return (
     <div className='max-w-7xl mx-auto'>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8">
-          {blogs && blogs.map((blog)=>{
-            return (
-              <BlogCard key={blog._id} blog={blog}/>
-            )
-          })}
+          {blogs ? <>
+            {blogs.map((blog) => {
+              return (
+                <BlogCard key={blog._id} blog={blog} />
+              )
+            })}
+          </> : <p>
+            No blogs present!
+          </p>}
         </div>
 
         <div className="lg:col-span-4 flex justify-end">
-          <div className="sticky top-10 w-full max-w-sm bg-blue-400/20 backdrop-blur-md p-6 rounded-lg">
+          <div className="sticky top-10 w-full max-w-sm h-1/2 bg-blue-400/20 backdrop-blur-md p-6 rounded-lg">
 
             <div className='flex items-center justify-center'>
               <img src={user.avatar.url} alt={user.fullname}

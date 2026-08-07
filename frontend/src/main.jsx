@@ -14,9 +14,11 @@ import {
 import Layout from './Layouts/Layout.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import HomePage from './pages/HomePage/HomePage.jsx'
-import BlogPage from './pages/BlogPages/BlogPage.jsx'
+import BlogDetailPage from './pages/BlogPages/BlogDetailPage.jsx'
 import LoginRegisterPage from './pages/AuthPage/LoginRegisterPage.jsx'
-import ProfilePage from './pages/ProfilePage/ProfilePage'
+import ProfilePage from './pages/ProfilePage/ProfilePage.jsx'
+import BookmarkPage from './pages/BookmarkPage/BookmarkPage.jsx'
+import MyBlogsPage from './pages/BlogPages/MyBlogsPage.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 import UpdateUserPage from './pages/SettingsPages/UpdateUserPage.jsx'
 import DashboardLayout from './Layouts/DashboardLayout.jsx'
@@ -40,7 +42,7 @@ const publicRoutes = [
   },
   {
     path: '/blog',
-    element: <BlogPage />
+    element: <BlogDetailPage />
   }
 ]
 
@@ -55,12 +57,20 @@ const protectedRoutes = [
     element: <ProfilePage />
   },
   {
+    path: '/me/blogs',
+    element: <MyBlogsPage />
+  },
+  {
+    path: '/me/bookmarks',
+    element: <BookmarkPage />
+  },
+  {
     path: '/blogs/:id',
-    element: <BlogPage />
+    element: <BlogDetailPage />
   },
   {
     path: "/:userId/blogs/:id",
-    element: <BlogPage />
+    element: <BlogDetailPage />
   },
   {
     path: '/settings/update-user',

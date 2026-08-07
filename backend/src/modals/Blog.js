@@ -32,8 +32,12 @@ const blogSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
+        },
+        isArchived: {
+            type: Boolean,
+            enum: [true, false],
+            default: false
         }
-
     },
     {
         timestamps: true

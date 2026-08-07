@@ -101,8 +101,8 @@ export const updatePwFields = [
     }
 ]
 
-import { FaHome, FaUserEdit } from "react-icons/fa";
-import { RiLockPasswordLine, RiProfileFill } from "react-icons/ri";
+import { FaBlog, FaHome, FaSave, FaUserEdit } from "react-icons/fa";
+import { RiBookMarkedFill, RiLockPasswordLine, RiProfileFill } from "react-icons/ri";
 import { MdArticle } from "react-icons/md";
 
 export const sideBarItems = [
@@ -115,6 +115,16 @@ export const sideBarItems = [
         pageTitle: "Profile",
         icon: RiProfileFill,
         path: "/profile"
+    },
+    {
+        pageTitle: "Stories",
+        icon: FaBlog,
+        path: "/me/blogs"
+    },
+    {
+        pageTitle: "bookmarks",
+        icon: RiBookMarkedFill,
+        path: "/me/bookmarks"
     },
  
 ];
