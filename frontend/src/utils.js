@@ -114,7 +114,7 @@ export const sideBarItems = [
     {
         pageTitle: "Profile",
         icon: RiProfileFill,
-        path: "/profile"
+        path: "/:username"
     },
     {
         pageTitle: "Stories",

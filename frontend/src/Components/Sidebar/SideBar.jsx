@@ -1,8 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { settingOptions, sideBarItems } from "../../utils";
+import { useSelector } from "react-redux";
 
 const SideBar = () => {
+  const { user, token } = useSelector(
+        (state) => state.auth
+    )
   return (
     <aside className="sticky top-0 h-screen w-72 bg-white border-r border-gray-200 shadow-lg flex flex-col justify-between px-5 py-6">
 
@@ -15,17 +19,17 @@ const SideBar = () => {
         <nav className="space-y-2">
           {sideBarItems.map((page) => {
             const Icon = page.icon;
-
+            const path = page.path === "/:username" ? `/${user?.username}`
+              : page.path;
             return (
               <NavLink
                 key={page.pageTitle}
-                to={page.path}
+                to={path}
                 className={({ isActive }) =>
                   `group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300
-                  ${
-                    isActive
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  ${isActive
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                   }`
                 }
               >
@@ -60,10 +64,9 @@ const SideBar = () => {
                   to={option.path}
                   className={({ isActive }) =>
                     `group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300
-                    ${
-                      isActive
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    ${isActive
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                     }`
                   }
                 >

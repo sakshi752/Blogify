@@ -120,7 +120,10 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
         query.status = status;
     }
 
-    const blogs = await Blog.find(query).skip((page - 1) * limit).limit(limit);
+    const blogs = await Blog.find(query)
+        .populate("author", "fullname username avatar")
+        .skip((page - 1) * limit)
+        .limit(Number(limit));
 
     return res
         .status(200)

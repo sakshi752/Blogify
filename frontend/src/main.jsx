@@ -53,7 +53,7 @@ const protectedRoutes = [
     element: <HomePage />
   },
   {
-    path: '/profile',
+    path: '/:username',
     element: <ProfilePage />
   },
   {
@@ -69,7 +69,7 @@ const protectedRoutes = [
     element: <BlogDetailPage />
   },
   {
-    path: "/:userId/blogs/:id",
+    path: "/:username/blogs/:id",
     element: <BlogDetailPage />
   },
   {

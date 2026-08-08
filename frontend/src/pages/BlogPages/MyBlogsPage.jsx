@@ -51,12 +51,13 @@ const MyBlogsPage = () => {
             console.log("err ", error);
         }
     }
+
     return (
         <div className='max-w-7xl mx-auto'>
             <div>
-                <div>
-                    <h1 className="text-3xl font-bold mb-6">Stories</h1>
-                </div>
+
+                <h1 className="text-3xl font-bold mb-6">Stories</h1>
+
                 <div className="flex border-b border-gray-200  mb-6 w-full">
                     {tabs.map(tab => (
                         <button
